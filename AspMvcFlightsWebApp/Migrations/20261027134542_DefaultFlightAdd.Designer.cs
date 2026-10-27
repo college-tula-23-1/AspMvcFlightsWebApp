@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspMvcFlightsWebApp.Migrations
 {
     [DbContext(typeof(FlightsDbContext))]
-    [Migration("20261015145249_FlightsInit")]
-    partial class FlightsInit
+    [Migration("20261027134542_DefaultFlightAdd")]
+    partial class DefaultFlightAdd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,16 +33,12 @@ namespace AspMvcFlightsWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -59,17 +55,12 @@ namespace AspMvcFlightsWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
-
-                    b.Property<string>("IataCode")
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -107,13 +98,10 @@ namespace AspMvcFlightsWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AirlineId")
+                    b.Property<int?>("AirlineId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ArrivalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DapartueId")
+                    b.Property<int?>("ArrivalId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("Date")
@@ -121,20 +109,19 @@ namespace AspMvcFlightsWebApp.Migrations
                         .HasColumnType("date")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("DepartureId")
+                    b.Property<int?>("DepartureId")
                         .HasColumnType("int");
 
                     b.Property<TimeOnly>("Time")
-                        .HasColumnType("time");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("time")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Title");
 
                     b.HasIndex("AirlineId");
 
@@ -149,9 +136,7 @@ namespace AspMvcFlightsWebApp.Migrations
                 {
                     b.HasOne("AspMvcFlightsWebApp.Models.City", "City")
                         .WithMany("Airports")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
 
                     b.Navigation("City");
                 });
@@ -159,33 +144,22 @@ namespace AspMvcFlightsWebApp.Migrations
             modelBuilder.Entity("AspMvcFlightsWebApp.Models.Flight", b =>
                 {
                     b.HasOne("AspMvcFlightsWebApp.Models.Airline", "Airline")
-                        .WithMany("Flights")
-                        .HasForeignKey("AirlineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("AirlineId");
 
                     b.HasOne("AspMvcFlightsWebApp.Models.Airport", "Arrival")
                         .WithMany()
-                        .HasForeignKey("ArrivalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ArrivalId");
 
                     b.HasOne("AspMvcFlightsWebApp.Models.Airport", "Departure")
                         .WithMany()
-                        .HasForeignKey("DepartureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartureId");
 
                     b.Navigation("Airline");
 
                     b.Navigation("Arrival");
 
                     b.Navigation("Departure");
-                });
-
-            modelBuilder.Entity("AspMvcFlightsWebApp.Models.Airline", b =>
-                {
-                    b.Navigation("Flights");
                 });
 
             modelBuilder.Entity("AspMvcFlightsWebApp.Models.City", b =>

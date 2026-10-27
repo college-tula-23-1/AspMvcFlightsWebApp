@@ -12,7 +12,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "dashboard",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}");
+    pattern: "{area:exists}/{controller=Admin}/{action=Index}");
 
 
 app.Run();

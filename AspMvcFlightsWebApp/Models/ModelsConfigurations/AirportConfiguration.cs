@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AspMvcFlightsWebApp.Models.Configurations
+namespace AspMvcFlightsWebApp.Models.ModelsConfigurations
 {
     public class AirportConfiguration : IEntityTypeConfiguration<Airport>
     {

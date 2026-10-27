@@ -1,4 +1,4 @@
-﻿using AspMvcFlightsWebApp.Models.Configurations;
+﻿using AspMvcFlightsWebApp.Models.ModelsConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspMvcFlightsWebApp.Models
@@ -6,8 +6,9 @@ namespace AspMvcFlightsWebApp.Models
     public class FlightsDbContext : DbContext
     {
         public DbSet<City> Cities { get; set; } = null!;
-        public DbSet<Airport> Airports { get; set; } = null!;
         public DbSet<Airline> Airlines { get; set; } = null!;
+        public DbSet<Airport> Airports { get; set; } = null!;
+
         public DbSet<Flight> Flights { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -25,8 +26,8 @@ namespace AspMvcFlightsWebApp.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new CityConfiguration());
-            modelBuilder.ApplyConfiguration(new AirportConfiguration());
             modelBuilder.ApplyConfiguration(new AirlineConfiguration());
+            modelBuilder.ApplyConfiguration(new AirportConfiguration());
             modelBuilder.ApplyConfiguration(new FlightConfiguration());
         }
     }

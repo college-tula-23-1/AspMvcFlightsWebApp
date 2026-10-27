@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
 
-namespace AspMvcFlightsWebApp.Models.Configurations
+namespace AspMvcFlightsWebApp.Models.ModelsConfigurations
 {
     public class CityConfiguration : IEntityTypeConfiguration<City>
     {
@@ -10,8 +9,6 @@ namespace AspMvcFlightsWebApp.Models.Configurations
         {
             builder.HasKey(c => c.Id);
             builder.HasAlternateKey(c => c.Title);
-            builder.HasMany(c => c.Airports)
-                   .WithOne(a => a.City);
         }
     }
 }
