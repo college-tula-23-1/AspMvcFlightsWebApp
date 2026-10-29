@@ -1,0 +1,92 @@
+﻿@using AspMvcFlightsWebApp.Areas.Dashboard.Models
+
+@{
+    List<MainMenuItem>? items = ViewData["MenuItems"] as List<MainMenuItem>;
+}
+
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title></title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+</head>
+<body>
+    
+    
+    <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow"
+            data-bs-theme="dark">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white"
+           href="#">Flifght Dashboard</a>
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#">Sign Out</a>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+                <div class="offcanvas-md offcanvas-end bg-body-tertiary"
+                     tabindex="-1"
+                     id="sidebarMenu"
+                     aria-labelledby="sidebarMenuLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="sidebarMenuLabel">
+                            Company name
+                        </h5>
+                    </div>
+                    <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+                        <ul class="nav flex-column">
+                            
+                            @foreach (var item in items)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex align-items-center gap-2"
+                                        asp-area="Dashboard"
+                                        asp-controller="@item.Controller"
+                                        asp-action="Index">
+                                        @item.Title
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                Share
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                Export
+                            </button>
+                        </div>
+                        <button type="button"
+                                class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
+                            <svg class="bi" aria-hidden="true">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            This week
+                        </button>
+                    </div>
+                </div>
+                
+                <h2 class="mb-5">Dashboard @ViewData["Title"]</h2>
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <script src="~/js/dashboard.js"></script>
+</body>
+</html>

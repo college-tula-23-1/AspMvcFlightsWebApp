@@ -6,7 +6,7 @@ namespace AspMvcFlightsWebApp.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "City Title Is Not Empty")]
         public string Title { get; set; } = null!;
 
         public List<Airport>? Airports { get; set; }
