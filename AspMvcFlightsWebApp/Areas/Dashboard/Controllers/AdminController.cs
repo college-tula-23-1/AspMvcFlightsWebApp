@@ -11,6 +11,7 @@ namespace AspMvcFlightsWebApp.Areas.Dashboard.Controllers
             using(DashboardDbContext dbContext = new())
             {
                 ViewData["MenuItems"] = dbContext.MainMenuItems.ToList();
+                ViewData["Title"] = "Dashboard";
             }
 
             return View();
