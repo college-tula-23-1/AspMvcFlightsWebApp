@@ -8,7 +8,10 @@ namespace AspMvcFlightsWebApp.Models.ModelsConfigurations
         public void Configure(EntityTypeBuilder<City> builder)
         {
             builder.HasKey(c => c.Id);
-            builder.HasAlternateKey(c => c.Title);
+            //builder.HasAlternateKey(c => c.Title);
+
+            builder.HasIndex(c => c.Title)
+                   .IsUnique();
         }
     }
 }

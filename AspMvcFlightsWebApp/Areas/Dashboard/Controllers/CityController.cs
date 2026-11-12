@@ -39,7 +39,16 @@ namespace AspMvcFlightsWebApp.Areas.Dashboard.Controllers
 
             if (ModelState.IsValid)
             {
-                flightsContext.Cities.Add(city);
+                var isUnique = flightsContext.Cities.All(c => c.Title != city.Title);
+
+                if(!isUnique)
+                {
+                    ModelState.AddModelError("Title", "Название города должно быть уникальным");
+                    return View(city);
+                }
+                    
+
+                flightsContext.Add(city);
                 await flightsContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -107,7 +116,42 @@ namespace AspMvcFlightsWebApp.Areas.Dashboard.Controllers
             }
             return View(city);
         }
-    
+        
+        public async Task<IActionResult> Delete(int? id)
+        {
+            ViewData["MenuItems"] = await dashboardContext.MainMenuItems.ToListAsync();
+            ViewData["Title"] = "Cities";
+
+            if(id is null) return NotFound();
+
+            var city = await flightsContext.Cities
+                                           .Include(c => c.Airports)
+                                           .FirstOrDefaultAsync(c => c.Id == id);
+
+            if(city is null) return NotFound();
+
+            return View(city);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirm(int? id)
+        {
+            ViewData["MenuItems"] = await dashboardContext.MainMenuItems.ToListAsync();
+            ViewData["Title"] = "Cities";
+
+            var city = await flightsContext.Cities
+                                           .FirstOrDefaultAsync(c => c.Id == id);
+            
+            if( city is not null)
+                flightsContext.Cities.Remove(city);
+
+            await flightsContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+
+        }
+
         private bool CityExists(int? id)
         {
             return flightsContext.Cities.Any(c => c.Id == id);
