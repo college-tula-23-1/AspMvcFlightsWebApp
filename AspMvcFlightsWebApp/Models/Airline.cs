@@ -10,5 +10,7 @@ namespace AspMvcFlightsWebApp.Models
         public string Title { get; set; } = null!;
 
         public string? Logo { get; set; }
+
+        public List<Flight> Flights { get; set; } = new();
     }
 }

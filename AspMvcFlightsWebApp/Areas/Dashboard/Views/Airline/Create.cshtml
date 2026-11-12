@@ -1,0 +1,32 @@
+﻿@model AspMvcFlightsWebApp.Models.Airline
+
+<div class="row">
+    <h4>Create New Airline</h4>
+    <hr />
+
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Logo" class="control-label"></label>
+                <input asp-for="Logo"
+                       type="file"
+                       accept="image/*"
+                       class="form-control" />
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-primary btn-sm">Create</button>
+                <a asp-action="Index" class="btn btn-success btn-sm">Back To List</a>
+            </div>
+        </form>
+    </div>
+</div>

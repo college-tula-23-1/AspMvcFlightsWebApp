@@ -1,0 +1,46 @@
+﻿@model AspMvcFlightsWebApp.Models.Airline
+
+<div>
+    <h4>@Model.Title Details</h4>
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Logo)
+        </dt>
+        <dd class="col-sm-10">
+            @if (!String.IsNullOrEmpty(Model.Logo))
+            {
+                <img src="~/images/@Model.Logo" height="70" />
+            }
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Flights)
+        </dt>
+        <dd class="col-sm-10">
+            <ul class="list-group">
+                @foreach (var flight in Model.Flights)
+                {
+                    <li class="list-group-item">@flight.Title</li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-sm btn-primary"
+       asp-action="Edit"
+       asp-route-id="@Model?.Id">Edit</a>
+    <a class="btn btn-sm btn-success"
+       asp-action="Index">Back to List</a>
+</div>

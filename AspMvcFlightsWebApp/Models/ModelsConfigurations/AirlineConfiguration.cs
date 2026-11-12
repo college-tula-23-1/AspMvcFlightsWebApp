@@ -8,7 +8,7 @@ namespace AspMvcFlightsWebApp.Models.ModelsConfigurations
         public void Configure(EntityTypeBuilder<Airline> builder)
         {
             builder.HasKey(a => a.Id);
-            builder.HasAlternateKey(a => a.Title);
+            //builder.HasAlternateKey(a => a.Title);
         }
     }
 }

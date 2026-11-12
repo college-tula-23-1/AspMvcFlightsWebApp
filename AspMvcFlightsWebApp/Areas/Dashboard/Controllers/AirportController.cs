@@ -24,13 +24,17 @@ public class AirportController : Controller
     // GET: AIRPORTS/Details/5
     public async Task<IActionResult> Details(int? id)
     {
+        ViewData["MenuItems"] = await dashboardContext.MainMenuItems.ToListAsync();
+        ViewData["Title"] = "Airports";
+
         if (id == null)
         {
             return NotFound();
         }
 
         var airport = await _context.Airports
-            .FirstOrDefaultAsync(m => m.Id == id);
+                                    .Include(a => a.City)
+                                    .FirstOrDefaultAsync(m => m.Id == id);
         if (airport == null)
         {
             return NotFound();
@@ -71,12 +75,17 @@ public class AirportController : Controller
     // GET: AIRPORTS/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
+        ViewData["MenuItems"] = await dashboardContext.MainMenuItems.ToListAsync();
+        ViewData["Title"] = "Airports";
+
         if (id == null)
         {
             return NotFound();
         }
 
         var airport = await _context.Airports.FindAsync(id);
+        ViewData["Cities"] = await _context.Cities.ToListAsync();
+
         if (airport == null)
         {
             return NotFound();
@@ -91,6 +100,9 @@ public class AirportController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,City,CityId")] Airport airport)
     {
+        ViewData["MenuItems"] = await dashboardContext.MainMenuItems.ToListAsync();
+        ViewData["Title"] = "Airports";
+
         if (id != airport.Id)
         {
             return NotFound();
@@ -122,13 +134,17 @@ public class AirportController : Controller
     // GET: AIRPORTS/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
+        ViewData["MenuItems"] = await dashboardContext.MainMenuItems.ToListAsync();
+        ViewData["Title"] = "Airports";
+
         if (id == null)
         {
             return NotFound();
         }
 
         var airport = await _context.Airports
-            .FirstOrDefaultAsync(m => m.Id == id);
+                                    .Include(a => a.City)
+                                    .FirstOrDefaultAsync(m => m.Id == id);
         if (airport == null)
         {
             return NotFound();
