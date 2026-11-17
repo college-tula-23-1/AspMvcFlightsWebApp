@@ -1,0 +1,72 @@
+﻿@using AspMvcFlightsWebApp.Models;
+@model AspMvcFlightsWebApp.Models.Flight
+
+<div class="row">
+    <h4>Detail For Flight @Model.Title</h4>
+    <hr />
+
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+            </dl>
+            
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Date)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Date)
+                </dd>
+            </dl>
+
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Time)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Time)
+                </dd>
+            </dl>
+
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Airline)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Airline.Title)
+                </dd>
+            </dl>
+
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Departure)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Departure!.Title)
+                </dd>
+            </dl>
+
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Arrival)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Arrival!.Title)
+                </dd>
+            </dl>
+
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-primary btn-sm">Create</button>
+                <a asp-action="Index" class="btn btn-success btn-sm">Back To List</a>
+            </div>
+        </form>
+    </div>
+</div>

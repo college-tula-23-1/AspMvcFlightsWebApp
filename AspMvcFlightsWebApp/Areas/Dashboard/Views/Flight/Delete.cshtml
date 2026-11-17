@@ -1,0 +1,69 @@
+﻿@using AspMvcFlightsWebApp.Models;
+@model AspMvcFlightsWebApp.Models.Flight
+
+<div class="row">
+    <h4>Are You Sure Want To Delete Flight @Model.Title</h4>
+    <hr />
+
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+        </dl>
+            
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Time)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Time)
+            </dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Airline)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Airline.Title)
+            </dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Departure)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Departure!.Title)
+            </dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Arrival)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Arrival!.Title)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
+            <a asp-action="Index" class="btn btn-sm btn-success">Back to List</a>
+        </form>
+    </div>
+</div>
