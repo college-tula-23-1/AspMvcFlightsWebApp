@@ -119,7 +119,6 @@ namespace AspMvcFlightsWebApp.Areas.Dashboard.Controllers
             return View(flight);
         }
 
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id is null) return NotFound();

@@ -1,2 +1,71 @@
-﻿
-<h3>@ViewData["Title"]</h3>
+﻿@using AspMvcFlightsWebApp.Models
+@using AspMvcFlightsWebApp.ViewModels
+
+@addTagHelper *, AspMvcFlightsWebApp
+
+@model IndexViewModel
+
+<div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Flight Title</th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-current="@Model.SortViewModel.CurrentState"
+                       asp-route-property="@Model.SortViewModel.AirlineState">
+                        Airline
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-current="@Model.SortViewModel.CurrentState"
+                       asp-route-property="@Model.SortViewModel.DepartureState">
+                        Departure
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-current="@Model.SortViewModel.CurrentState"
+                       asp-route-property="@Model.SortViewModel.ArrivalState">
+                        Arrival
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-current="@Model.SortViewModel.CurrentState"
+                       asp-route-property="@Model.SortViewModel.AirlineState">
+                        Date
+                    </a>
+                </th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var f in Model.Flights)
+            {
+                <tr>
+                    <td>@f.Title</td>
+                    <td>
+                        <img src="~/images/@f.Airline?.Logo" height="50" />"
+                        @f.Airline.Title
+                    </td>
+                    <td>
+                        @f.Departure?.Title (@f.Departure?.City?.Title)
+                    </td>
+                    <td>
+                        @f.Arrival?.Title (@f.Arrival?.City?.Title)
+                    </td>
+                    <td>
+                        @f.Date.ToShortDateString()
+                    </td>
+                    <td>
+                        @f.Time.ToShortTimeString()
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
